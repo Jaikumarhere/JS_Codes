@@ -1,0 +1,148 @@
+<html>
+    <script>
+
+//No.1: Object literal
+    // Creating an empty object with object literal.
+    const myEmptyObj = {}
+
+    console.log(myEmptyObj)
+
+
+    // Creating object with object literal.
+    const myObj = {
+        name:'jaikumar',// One key-value pair.
+        role: 'admin',
+        isWorking: false,
+        sayHi: function() {
+        return `Hi, my name is ${this.name}.`
+        }
+    }
+
+    console.log(myObj)
+//No.2: The "new" keyword
+
+    // Creating object with object constructor.
+    const myObj2 = new Object()
+    // Add properties.
+    myObj2.username = 'Skylar'
+    myObj2.gender = 'female'
+    myObj2.title = 'Fullstack dev'
+
+    // Add a method.
+    myObj2.sayHi = function() {  return `Hi, I am ${this.username}.`}
+    console.log(myObj2)
+    
+    // Passing an object - not a good idea
+    const myObj3 = new Object({
+    username: 'Skylar',
+    gender: 'female',
+    title: 'Fullstack dev'
+    })
+
+    // Log the object to console.
+    console.log(myObj3)
+
+//No.3: Object.create() method
+
+    // Create new object (using object literal).
+    const human = {   species: 'human',  isAlive: true }
+
+    // Create new object "female" with Object.create()
+    // and use "human" as the prototype
+    // and add two new properties - "gender" and "pregnant".
+    const female = Object.create(human, {
+    // Add "gender" property.
+    gender: {
+        value: 'female', // Value of "gender" property.
+        writable: true,
+        enumerable: true,
+        configurable: true
+    },
+    // Add "pregnant" property.
+    pregnant: {
+        value: false, // Value of "pregnant" property.
+        writable: true,
+        enumerable: true,
+        configurable: true
+    }
+    })
+    console.log(female)
+    console.log(female.gender)
+    console.log(female.species)
+    console.log(female.isAlive)
+
+    /*Note: The species and isAlive properties were inherit from the original human object. 
+        If you log the content female object these two properties will not appear inside it directly. 
+        They will be inside __proto__ object. This object refers to the original object human */
+
+    console.log(female.isAlive)
+    human.isAlive = false
+    console.log(female.isAlive)
+
+//No.4: Object.assign() method
+    // Create some source objects.
+    const lang = {   language: 'JavaScript' }
+    const job = {   jobTitle: 'Programmer' }
+    const experience = {  experienceLevel: 'senior' }
+
+    const coderAnonymous = Object.assign({}, lang, job, experience)
+    // Log the "coderAnonymous" object.
+    console.log(coderAnonymous)
+
+    // Create new object with Object.assign() method.
+    // Use "lang", "job" and "experience" objects
+    // as source objects and also add new property "name".
+    // First argument is an object to create with property "name".
+    // Second argument are source objects.
+    const coderJack = Object.assign({  name: 'Jack'},// Add new property "name".
+     lang, job, experience) // Specify source objects.
+
+    // Log the "coderJack" object.
+    console.log(coderJack)
+
+//No.5: Function constructor
+        function User(name, username, email) {
+                this.name = name
+                this.username = username
+                this.email = email
+                // Add object method.
+                this.sayHi = function() {  return `Hi, my name is ${this.name}.` }
+        }
+        const userJoe = new User('Joe', 'joe123', 'joe@hello.com')
+        const userCathy = new User('Catherine', 'cathy', 'Catherine@hello.com')
+
+            console.log(userJoe.name)            // Output:            // 'Joe'
+            console.log(userCathy.name)            // Output:            // 'Catherine'
+            // Log usernames of new users.
+            console.log(userJoe.username)            // Output:            // 'joe123'
+            console.log(userCathy.username)            // Output:            // 'cathy'
+            // Log emails of new users.
+            console.log(userJoe.email)            // Output:            // 'joe@hello.com'
+            console.log(userCathy.email)            // Output:            // 'Catherine@hello.com'
+            // Call the sayHi method for all new users.
+            console.log(userJoe.sayHi())            // Output:            // 'Hi, my name is Joe.'
+            console.log(userCathy.sayHi())
+
+//No.6: ES6 classes
+    class User {
+        constructor(name, username, email) {
+            this.name = name
+            this.username = username
+            this.email = email
+            // Also, add one class method.
+            this.sayHi = function() {   return `Hi, my name is ${this.name}.`   }
+    }
+}
+
+const userJill = new User('Jill', 'jill987', 'jill@hello.com')
+
+// Log the content of userJill instance/object
+console.log(userJill)
+console.log(userJill.name)      // Output:// 'Jill'
+console.log(userJill.username)  // Output:// 'jill987'
+console.log(userJill.email)     // Output:// 'jill@hello.com'
+console.log(userJill.sayHi())   // Output:// 'Hi, my name is Jill.'
+
+
+    </script>
+</html>
