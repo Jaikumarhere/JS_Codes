@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXCELL TO JSON</title>
+    <script type="text/javascript" src="xlsx.full.min.js"></script>
+</head>
+<body>
+    <input type="file" id="fileUpload" accept=".xls,.xlsx,.csv"/><br/>
+    <button type="button" id="uploadExcel">Convert</button>
+    <pre id="jsonData"></pre>
+</body>
+</html>
+
+<script>
+    var selectedFile;
+       document
+       .getElementById('fileUpload')
+       .addEventListener('change',(event)=> {
+           selectedFile = event.target.files[0];
+       });
+    document
+    .getElementById('uploadExcel')
+    .addEventListener('click',()=>{
+        if(selectedFile){
+            console.log("hii");
+
+            var fileReader = new fileReader();
+            fileReader.onload = function(event){
+                var data = event.target.result;
+
+                var workbook = XLSX.read(data,{type:"binary"});
+                workbook.SheetNames.forEach(sheet=>{
+                    let rowObject = XLSX>utils.sheet_to_row_object_array(workbook.Sheets[sheet]);
+                    let jsonObject = JSON.stringify(rowObject);
+
+                    document.getElementById("jsonData").innerHTML = jsonObject;
+                });
+
+            };
+
+            fileReader.readAsBinaryString(selectedFile);
+        }
+    });
+</script>
